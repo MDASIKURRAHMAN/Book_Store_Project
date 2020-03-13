@@ -20,6 +20,7 @@ public class Register_Servlet extends HttpServlet {
         String email = request.getParameter("email");
         String phonenumber = request.getParameter("phone");
         String password = request.getParameter("password");
+        //sout("testing");
 
         try {
             Connection con = DBConnection.getConnection();
@@ -35,13 +36,15 @@ public class Register_Servlet extends HttpServlet {
 
             //Send email
             int code= (int) ((Math.random()*99999)+11111);
-            sent_email.send(email,"Hello:","Welcome to blood Bank Management.Your code here:"+code,sent_email.Text_email);
+            sent_email.send(email,"Hello:","Welcome to our Book store .Your code here:"+code,sent_email.Text_email);
 
             if (status > 0) {
+
                 request.getSession().setAttribute("confirm_email",code);
                 request.getRequestDispatcher("Email_Confirmation.jsp").forward(request, response);
             }
             else {
+
                 request.getRequestDispatcher("error.jsp").forward(request,response);
             }
         } catch (Exception e) {
